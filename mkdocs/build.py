@@ -140,6 +140,9 @@ def build_pages(config):
     loader = jinja2.FileSystemLoader(config['theme_dir'])
     env = jinja2.Environment(loader=loader)
 
+    pages_config = config['pages_config']
+    pages_to_render = []
+
     for page in site_navigation.walk_pages():
         # Read the input file
         input_path = os.path.join(config['docs_dir'], page.input_path)
@@ -149,11 +152,21 @@ def build_pages(config):
         html_content, table_of_contents, meta = convert_markdown(input_content)
         html_content = post_process_html(html_content, site_navigation)
 
+        if pages_config and page.input_path in pages_config:
+            page_config = pages_config[page.input_path]
+
+            if page_config.get('include_toc_in_nav') or config.get('include_toc_in_nav'):
+                page.toc = table_of_contents
+
         context = get_context(
             page, html_content, site_navigation,
             table_of_contents, meta, config
         )
 
+        pages_to_render.append((page, context))
+
+    for page_to_render in pages_to_render:
+        page, context = page_to_render
         # Allow 'template:' override in md source files.
         if 'template' in meta:
             template = env.get_template(meta['template'][0])

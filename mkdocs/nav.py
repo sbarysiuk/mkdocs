@@ -103,6 +103,9 @@ class Page(object):
         self.next_page = None
         self.ancestors = []
 
+        #included TOC
+        self.toc = None
+
     @property
     def url(self):
         return self.url_context.make_relative(self.abs_url)

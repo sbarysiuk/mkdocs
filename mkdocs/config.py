@@ -9,6 +9,7 @@ from mkdocs import utils
 DEFAULT_CONFIG = {
     'site_name': None,
     'pages': None,
+    'pages_config': None,
 
     'site_url': None,
     'site_description': None,
@@ -121,6 +122,7 @@ def validate_config(user_config):
 
     if config['include_nav'] is None:
         config['include_nav'] = len(config['pages']) > 1
+
 
     # To Do:
 
