@@ -12,7 +12,7 @@ pages:
 - ['about/license.md', 'About', 'License']
 
 pages_config:
-  include_toc_in_nav: true
+#  include_toc_in_nav: true
   'index.md':
     include_toc_in_nav: true
 

@@ -152,10 +152,8 @@ def build_pages(config):
         html_content, table_of_contents, meta = convert_markdown(input_content)
         html_content = post_process_html(html_content, site_navigation)
 
-        if pages_config and page.input_path in pages_config:
-            page_config = pages_config[page.input_path]
-
-            if page_config.get('include_toc_in_nav') or pages_config.get('include_toc_in_nav'):
+        if pages_config:
+            if pages_config.get('include_toc_in_nav') or pages_config.get(page.input_path, {}).get('include_toc_in_nav'):
                 page.toc = table_of_contents
 
         context = get_context(
