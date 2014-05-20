@@ -155,7 +155,7 @@ def build_pages(config):
         if pages_config and page.input_path in pages_config:
             page_config = pages_config[page.input_path]
 
-            if page_config.get('include_toc_in_nav') or config.get('include_toc_in_nav'):
+            if page_config.get('include_toc_in_nav') or pages_config.get('include_toc_in_nav'):
                 page.toc = table_of_contents
 
         context = get_context(
